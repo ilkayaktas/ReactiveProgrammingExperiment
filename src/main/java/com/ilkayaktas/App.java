@@ -1,7 +1,10 @@
 package com.ilkayaktas;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.observables.ConnectableObservable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by aselsan on 28.01.2019 at 09:27.
@@ -10,7 +13,7 @@ import io.reactivex.observables.ConnectableObservable;
 public class App {
     public static void main(String[] args) throws InterruptedException {
 
-        createLateMultiSubscriber();
+        createPublishSubscriber();
 
     }
 
@@ -72,4 +75,56 @@ public class App {
 
     }
 
+    static void createPublishSubscriber(){
+        PublishSubject<String> publisher = PublishSubject.create();
+
+        publisher.onNext("First message");
+
+        publisher.subscribe(new CustomObserver<>("1 "));
+
+        publisher.onNext("Second message");
+        publisher.onNext("Third message");
+
+        publisher.subscribe(new CustomObserver<>("2 "));
+
+        publisher.onNext("Fourth message");
+        publisher.onNext("Fifth message");
+
+        publisher.subscribe(new CustomObserver<>("3 "));
+
+        publisher.onNext("Sixth message");
+        publisher.onNext("Seventh message");
+
+  //      publisher.onError(new Throwable("Error"));
+        publisher.onComplete();
+    }
+
+}
+
+class CustomObserver<T> implements Observer<T>{
+    private String name;
+
+    public CustomObserver(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        System.out.println(name+" Subscribed!");
+    }
+
+    @Override
+    public void onNext(T t) {
+        System.out.println(name+" "+t.toString());
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        System.out.println(name+" "+e.getLocalizedMessage());
+    }
+
+    @Override
+    public void onComplete() {
+        System.out.println(name+" "+"Finished!");
+    }
 }
