@@ -1,5 +1,7 @@
 package com.ilkayaktas;
 
+import com.ilkayaktas.clean.BusinessLogicResultExecutor;
+import com.ilkayaktas.clean.UseCase;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -13,9 +15,22 @@ import io.reactivex.subjects.PublishSubject;
 public class App {
     public static void main(String[] args) throws InterruptedException {
 
-        createPublishSubscriber();
+        createCleanArch();
 
     }
+
+    private static void createCleanArch() {
+        Observable<String> businessLogic = Observable.just("Bir", "İki", "Üç");
+
+        UseCase<String> useCase = new UseCase(businessLogic);
+
+        useCase.execute(new BusinessLogicResultExecutor<>()); // Compose business logic and result executor in usecase
+
+        businessLogic.subscribe();
+
+    }
+
+
 
     static void createObservable(){
         Observable<String> obs = Observable.create(emitter -> {
