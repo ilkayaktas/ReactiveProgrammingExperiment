@@ -1,7 +1,6 @@
 package com.ilkayaktas;
 
-import com.ilkayaktas.clean.BusinessLogicResultExecutor;
-import com.ilkayaktas.clean.UseCase;
+import com.ilkayaktas.clean.presenter.ThePresenter;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -13,13 +12,14 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public class App {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
         createCleanArch();
 
     }
 
     private static void createCleanArch() {
+        /*
         Observable<String> businessLogic = Observable.just("Bir", "İki", "Üç");
 
         UseCase<String> useCase = new UseCase(businessLogic);
@@ -27,9 +27,12 @@ public class App {
         useCase.execute(new BusinessLogicResultExecutor<>()); // Compose business logic and result executor in usecase
 
         businessLogic.subscribe();
+         */
+
+        ThePresenter thePresenter = new ThePresenter();
+        thePresenter.doDidDone();
 
     }
-
 
 
     static void createObservable(){
