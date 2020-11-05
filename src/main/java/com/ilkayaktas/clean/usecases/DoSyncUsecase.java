@@ -12,6 +12,9 @@ public class DoSyncUsecase implements SynchronousUseCase<Position, Double> {
     CustomSyncService customSyncService = new CustomSyncService();
     @Override
     public Double execute(Position position) {
-        return customSyncService.calculate(position);
+        Double d = customSyncService.calculate(position);
+
+        System.out.println("Sync: " + d);
+        return d;
     }
 }

@@ -9,8 +9,9 @@ import com.ilkayaktas.clean.model.Position;
 public class CustomSyncService {
     public Double calculate(Position position){
         double d = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             try {
+                System.out.println("Sync operation keep moving!!!");
                 d += i;
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

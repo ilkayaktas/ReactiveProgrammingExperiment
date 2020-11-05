@@ -36,6 +36,8 @@ public class ThePresenter {
         doOneThingUsecase.execute(new PositionSentResult(), new Position(15,16));
 
         doSyncUsecase.execute(new Position());
+
+        System.out.println("Did!");
     }
 
     class PositionSentResult extends EmptySingleObserver<Boolean> {
