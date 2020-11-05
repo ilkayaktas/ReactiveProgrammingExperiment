@@ -11,6 +11,7 @@ import com.ilkayaktas.clean.model.Position;
 import com.ilkayaktas.clean.usecases.DoCompletableUsecase;
 import com.ilkayaktas.clean.usecases.DoContinuousUsecase;
 import com.ilkayaktas.clean.usecases.DoOneThingUsecase;
+import com.ilkayaktas.clean.usecases.DoSyncUsecase;
 
 /**
  * Created by ilkayaktas on 5.11.2020 at 09:14.
@@ -24,6 +25,7 @@ public class ThePresenter {
     DoCompletableUsecase doCompletableUsecase = new DoCompletableUsecase(threadExecutor, postExecutionThread);
     DoContinuousUsecase doContinuousUsecase = new DoContinuousUsecase(threadExecutor, postExecutionThread);
     DoOneThingUsecase doOneThingUsecase = new DoOneThingUsecase(threadExecutor, postExecutionThread);
+    DoSyncUsecase doSyncUsecase = new DoSyncUsecase();
 
     public void doDidDone(){
 
@@ -32,6 +34,8 @@ public class ThePresenter {
         doContinuousUsecase.execute(new ContinuesResult(), new Position(50,60));
 
         doOneThingUsecase.execute(new PositionSentResult(), new Position(15,16));
+
+        doSyncUsecase.execute(new Position());
     }
 
     class PositionSentResult extends EmptySingleObserver<Boolean> {
